@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import API from "../API";
-import { BACKDROP_SIZE, IMAGE_BASE_URL } from "../config";
+import { BACKDROP_SIZE, IMAGE_BASE_URL, POSTER_SIZE } from "../config";
 import { useHomeFetch } from "../hooks/useHomeFetch";
 import NoImage from "../images/no_image.jpg";
+import Grid from "./Grid";
 import HeroImage from "./HeroImage";
+import Thumb from "./Thumb";
 
 const Home = () => {
   const { state, loading, error } = useHomeFetch();
@@ -19,6 +21,20 @@ const Home = () => {
           text={state.results[randomNumber].overview}
         />
       )}
+      <Grid header="Popular Movies">
+        {state.results.map((movie) => (
+          <Thumb
+            key={movie.id}
+            clickable
+            img={
+              movie.poster_path
+                ? IMAGE_BASE_URL + POSTER_SIZE + movie.poster_path
+                : NoImage
+            }
+            movieId={movie.id}
+          />
+        ))}
+      </Grid>
     </>
   );
 };
