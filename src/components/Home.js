@@ -10,13 +10,13 @@ import Spinner from "./Spinner";
 import Thumb from "./Thumb";
 
 const Home = () => {
-  const { state, loading, error, setSearchTerm } = useHomeFetch();
+  const { state, loading, error, searchTerm, setSearchTerm } = useHomeFetch();
 
   const randomNumber = Math.floor(Math.random() * state.results.length);
 
   return (
     <>
-      {state.results[randomNumber] && (
+      {!searchTerm && state.results[randomNumber] && (
         <HeroImage
           image={`${IMAGE_BASE_URL}${BACKDROP_SIZE}${state.results[randomNumber].backdrop_path}`}
           title={state.results[randomNumber].original_title}
@@ -24,7 +24,7 @@ const Home = () => {
         />
       )}
       <SearchBar setSearchTerm={setSearchTerm} />
-      <Grid header="Popular Movies">
+      <Grid header={searchTerm ? "Search Results" : "Popular Movies"}>
         {state.results.map((movie) => (
           <Thumb
             key={movie.id}
