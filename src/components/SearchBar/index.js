@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Content, Wrapper } from "./SearchBar.styles";
 import searchIcon from "../../images/search-icon.svg";
+import PropTypes from "prop-types";
 
 const SearchBar = ({ setSearchTerm }) => {
   const [state, setState] = useState("");
@@ -25,6 +26,10 @@ const SearchBar = ({ setSearchTerm }) => {
       </Content>
     </Wrapper>
   );
+};
+
+SearchBar.propTypes = {
+  setSearchTerm: PropTypes.func,
 };
 
 export default SearchBar;
